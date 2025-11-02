@@ -1,8 +1,8 @@
-stack:
-GO,Nuxt,MongoDB
-Run:
+stack:GO,Nuxt,MongoDB
+
 
 npm install
+
 npm run dev
 
 Ensure backend is running at http://localhost:8080 (main.go)
