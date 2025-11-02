@@ -1,0 +1,74 @@
+# Local env files
+# .env
+# .env.*
+# !.env.example
+
+# Log files
+*.log
+logs/
+*.pid
+*.seed
+*.pid.lock
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Go backend ===
+backend/bin/
+backend/build/
+backend/tmp/
+backend/vendor/
+backend/*.exe
+backend/*.exe~
+backend/*.dll
+backend/*.so
+backend/*.dylib
+backend/*.test
+backend/*.out
+backend/*.log
+# Go modules cache (don’t commit local module cache)
+backend/go.sum
+# keep go.mod but ignore generated binaries
+
+# === Docker ===
+# docker-compose.override.yml
+# .docker/
+# *.env.local
+
+# === Test coverage ===
+coverage/
+*.cover
+*.prof
+*.cov
+
+# === Frontend generated files ===
+frontend/.nuxt/
+frontend/.output/
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+
+# === Misc ===
+# *.local
+# *.bak
+# *.tmp
+# *.old
+
+# === Deployment / CI ===
+# .vercel/
+# .netlify/
+# firebase-debug.log
+# .now/
+
+# === Git ===
+*.orig
