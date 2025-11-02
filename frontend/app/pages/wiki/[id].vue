@@ -53,7 +53,7 @@ const error = ref(null)
 const loadPage = async () => {
   try {
     loading.value = true
-    const res = await fetch(`${API_BASE}/pages/${id}`)
+    const res = await fetch(`${API_BASE}/api/pages/${id}`)
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     page.value = await res.json()
   } catch (err) {
@@ -67,7 +67,7 @@ const loadPage = async () => {
 // === Сохранение страницы ===
 const savePage = async () => {
   try {
-    const res = await fetch(`${API_BASE}/pages/${id}`, {
+    const res = await fetch(`${API_BASE}/api/pages/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(page.value),

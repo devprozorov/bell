@@ -40,7 +40,7 @@ const draggedPage = ref(null)
 async function loadPages() {
   try {
     const config = useRuntimeConfig()
-    const res = await fetch(`${config.public.apibase}/wiki/pages`)
+    const res = await fetch(`${config.public.apibase}/api/wiki/pages`)
     const data = await res.json()
     pages.value = Array.isArray(data) ? data : []
   } catch (err) {
@@ -67,7 +67,7 @@ async function onDrop(targetPage) {
   // обновляем на сервере
   try {
     const config = useRuntimeConfig()
-    await fetch(`${config.public.apibase}/wiki/pages/${movedPage._id}`, {
+    await fetch(`${config.public.apibase}/api/wiki/pages/${movedPage._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ parentId: targetPage._id }),
@@ -92,7 +92,7 @@ async function createPage(parentId) {
   const payload = { title: 'Новая страница', content: '', parentId }
   try {
     const config = useRuntimeConfig()
-    const res = await fetch(`${config.public.apibase}/wiki/pages`, {
+    const res = await fetch(`${config.public.apibase}/api/wiki/pages`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

@@ -171,7 +171,7 @@ async function deletePage() {
   if (!confirm('Удалить страницу?')) return
 
   try {
-    const res = await fetch(`${config.public.apibase}/wiki/pages/${props.page._id}`, {
+    const res = await fetch(`${config.public.apibase}/api/wiki/pages/${props.page._id}`, {
       method: 'DELETE'
     })
     if (!res.ok) throw new Error('Ошибка при удалении страницы')

@@ -24,7 +24,7 @@ const html = ref('')
 
 async function load() {
   try {
-    const res = await fetch(`${API_BASE}/pages/${props.pageId}`)
+    const res = await fetch(`${API_BASE}/api/pages/${props.pageId}`)
     if (!res.ok) throw new Error('not found')
     page.value = await res.json()
     html.value = marked.parse(page.value.content || '')
@@ -38,7 +38,7 @@ async function load() {
 async function deletePage() {
   if (!confirm('Delete page?')) return
   try {
-    await fetch(`${API_BASE}/pages/${props.pageId}`, { method: 'DELETE' })
+    await fetch(`${API_BASE}/api/pages/${props.pageId}`, { method: 'DELETE' })
     emit('deleted')
   } catch (e) { console.error(e) }
 }

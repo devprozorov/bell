@@ -73,7 +73,7 @@ const headers = {
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const res = await $fetch(`${apiUrl}/users`, { headers })
+    const res = await $fetch(`${apiUrl}/api/users`, { headers })
     users.value = res
   } catch (err) {
     console.error("Ошибка загрузки пользователей", err)
@@ -85,7 +85,7 @@ const fetchUsers = async () => {
 const approveUser = async (id: string) => {
   console.log("approve id:", id)
   try {
-    await $fetch(`${apiUrl}/approve`, {
+    await $fetch(`${apiUrl}/api/approve`, {
       method: "POST",
       headers,
       body: { id }
@@ -99,7 +99,7 @@ const approveUser = async (id: string) => {
 const rejectUser = async (id: string) => {
   console.log("reject id:", id)
   try {
-    await $fetch(`${apiUrl}/reject`, {
+    await $fetch(`${apiUrl}/api/reject`, {
       method: "POST",
       headers,
       body: { id }
@@ -113,7 +113,7 @@ const rejectUser = async (id: string) => {
 const deleteUser = async (id: string) => {
   console.log("delete id:", id)
   try {
-    await $fetch(`${apiUrl}/delete`, {
+    await $fetch(`${apiUrl}/api/delete`, {
       method: "POST",
       headers,
       body: { id }

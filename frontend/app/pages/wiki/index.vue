@@ -135,7 +135,7 @@ const dragSourceRef = ref(null)
 async function loadPages() {
   try {
     const config = useRuntimeConfig()
-    const res = await fetch(`${config.public.apiBase}/wiki/pages`)
+    const res = await fetch(`${config.public.apiBase}/api/wiki/pages`)
     const data = await res.json()
     pages.value = buildTree(data)
   } catch (e) {
@@ -165,7 +165,7 @@ async function addPage(parentId = null) {
   try {
     const config = useRuntimeConfig()
     const res = await 
-    fetch(`${config.public.apiBase}/wiki/pages`, {
+    fetch(`${config.public.apiBase}/api/wiki/pages`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -180,7 +180,7 @@ async function openPage(page) {
   if (!page?._id) return
   try {
     const config = useRuntimeConfig()
-    const res = await fetch(`${config.public.apiBase}/wiki/pages/${page._id}`)
+    const res = await fetch(`${config.public.apiBase}/api/wiki/pages/${page._id}`)
     activePage.value = await res.json()
     editMode.value = false
   } catch (e) { console.error('Ошибка открытия страницы:', e) }
@@ -190,7 +190,7 @@ async function deletePage(id) {
   if (!confirm('Удалить страницу?')) return
   try {
     const config = useRuntimeConfig()
-    await fetch(`${config.public.apiBase}/wiki/pages/${id}`, { method: 'DELETE' })
+    await fetch(`${config.public.apiBase}/api/wiki/pages/${id}`, { method: 'DELETE' })
     if (activePage.value && activePage.value._id === id) activePage.value = null
     await loadPages()
   } catch (e) { console.error('Ошибка удаления:', e) }
@@ -231,12 +231,12 @@ async function onDrop(evt, targetPage) {
   try {
     // получаем страницу, чтобы сохранить старые поля
     const config = useRuntimeConfig()
-    const res = await fetch(`${config.public.apiBase}/wiki/pages/${sourceId}`)
+    const res = await fetch(`${config.public.apiBase}/api/wiki/pages/${sourceId}`)
     if (!res.ok) throw new Error('Не удалось получить данные страницы')
     const sourcePage = await res.json()
 
     // обновляем родителя
-    const updateRes = await fetch(`${config.public.apiBase}/wiki/pages/${sourceId}`, {
+    const updateRes = await fetch(`${config.public.apiBase}/api/wiki/pages/${sourceId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -253,7 +253,7 @@ async function onDrop(evt, targetPage) {
     await loadPages()
     if (activePage.value && activePage.value._id === sourceId) {
       const config = useRuntimeConfig()
-      const refreshed = await fetch(`${config.public.apiBase}/wiki/pages/${sourceId}`)
+      const refreshed = await fetch(`${config.public.apiBase}/api/wiki/pages/${sourceId}`)
       activePage.value = await refreshed.json()
     }
   } catch (e) {
@@ -312,7 +312,7 @@ async function savePage() {
     const content = editor?.value() ?? ''
     const body = { ...activePage.value, content }
     const config = useRuntimeConfig()
-    const res = await fetch(`${config.public.apiBase}/wiki/pages/${activePage.value._id}`, {
+    const res = await fetch(`${config.public.apiBase}/api/wiki/pages/${activePage.value._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
