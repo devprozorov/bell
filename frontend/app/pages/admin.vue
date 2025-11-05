@@ -43,18 +43,18 @@ import { ref, onMounted } from "vue"
 const users = ref<any[]>([])
 const loading = ref(true)
 const config = useRuntimeConfig()
-const apiUrl = `${config.public.apiBase}/admin`
+const apiUrl = `${config.public.apiBase}`
 const token = localStorage.getItem("token")
 const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
 
 const fetchUsers = async () => {
   loading.value = true
-  try { const res = await $fetch(`${apiUrl}/api/users`, { headers }); users.value = res }
+  try { const res = await $fetch(`${apiUrl}/api/admin/users`, { headers }); users.value = res }
   catch (err) { console.error("Ошибка загрузки пользователей", err) }
   finally { loading.value = false }
 }
-const approveUser = async (id: string) => { try { await $fetch(`${apiUrl}/api/approve`, { method: "POST", headers, body: { id } }); fetchUsers() } catch(e){ console.error(e) } }
-const rejectUser  = async (id: string) => { try { await $fetch(`${apiUrl}/api/reject`,  { method: "POST", headers, body: { id } }); fetchUsers() } catch(e){ console.error(e) } }
-const deleteUser  = async (id: string) => { try { await $fetch(`${apiUrl}/api/delete`,  { method: "POST", headers, body: { id } }); fetchUsers() } catch(e){ console.error(e) } }
+const approveUser = async (id: string) => { try { await $fetch(`${apiUrl}/api/admin/approve`, { method: "POST", headers, body: { id } }); fetchUsers() } catch(e){ console.error(e) } }
+const rejectUser  = async (id: string) => { try { await $fetch(`${apiUrl}/api/admin/reject`,  { method: "POST", headers, body: { id } }); fetchUsers() } catch(e){ console.error(e) } }
+const deleteUser  = async (id: string) => { try { await $fetch(`${apiUrl}/api/admin/delete`,  { method: "POST", headers, body: { id } }); fetchUsers() } catch(e){ console.error(e) } }
 onMounted(fetchUsers)
 </script>
